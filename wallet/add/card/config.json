@@ -1,0 +1,35 @@
+{
+  "dockerImageBuilder": "ritclizup/rit-go-builder",
+  "inputs": [
+    {
+      "label": "Type the card number: ",
+      "name": "card_number",
+      "required": true,
+      "type": "text"
+    },
+    {
+      "label": "Type the card holder: ",
+      "name": "card_holder",
+      "required": true,
+      "type": "text"
+    },
+    {
+      "label": "Type the month of expiration: ",
+      "name": "exp_month",
+      "required": true,
+      "type": "text"
+    },
+    {
+      "label": "Type the year of expiration: ",
+      "name": "exp_year",
+      "required": true,
+      "type": "text"
+    },
+    {
+      "label": "Type the user ID: ",
+      "name": "user_id",
+      "required": true,
+      "type": "text"
+    }
+  ]
+}
