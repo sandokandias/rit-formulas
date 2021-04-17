@@ -63,9 +63,9 @@ func (f Formula) Run(writer io.Writer) {
 				for _, v := range t.GetFieldViolations() {
 					log.Printf("%s: %s\n", v.GetField(), v.GetDescription())
 				}
-				log.Fatalf("failed add card: %v", err)
 			}
 		}
+		log.Fatalf("failed add card: %v", err)
 	}
 
 	log.Printf("Card token: %s", r.CardToken)
