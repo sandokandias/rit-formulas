@@ -12,8 +12,10 @@ import (
 	"time"
 
 	"github.com/sandokandias/card-vault-service/pkg/grpc/api"
+	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
+	"google.golang.org/grpc/status"
 )
 
 const (
@@ -54,7 +56,16 @@ func (f Formula) Run(writer io.Writer) {
 		UserId:     f.UserID,
 	})
 	if err != nil {
-		log.Fatalf("failed add card: %v", err)
+		st := status.Convert(err)
+		for _, detail := range st.Details() {
+			switch t := detail.(type) {
+			case *errdetails.BadRequest:
+				for _, v := range t.GetFieldViolations() {
+					log.Printf("%s: %s\n", v.GetField(), v.GetDescription())
+				}
+				log.Fatalf("failed add card: %v", err)
+			}
+		}
 	}
 
 	log.Printf("Card token: %s", r.CardToken)
